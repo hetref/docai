@@ -61,6 +61,9 @@ const EditorBlock: React.FC<EditorBlockProps> = ({ document }) => {
       //   revalidatePath("/");
       //   revalidatePath(`/document/${document.id}`);
     } catch (error) {
+      toast({
+        title: "Document Update Failed",
+      });
       console.log("ON UPDATE ERROR", error);
     }
   };
@@ -80,6 +83,9 @@ const EditorBlock: React.FC<EditorBlockProps> = ({ document }) => {
         });
       }
     } catch (error) {
+      toast({
+        title: "Document Delete Failed",
+      });
       console.log(error);
     }
   };
