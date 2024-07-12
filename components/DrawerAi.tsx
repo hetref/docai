@@ -28,8 +28,6 @@ import { Loader } from "lucide-react";
 import { useToast } from "./ui/use-toast";
 import { Button } from "./ui/button";
 
-import Markdown from "markdown-to-jsx";
-
 const DrawerAi = ({
   title,
   description,
@@ -80,7 +78,20 @@ const DrawerAi = ({
                 ? "Well, here's your content!"
                 : "Please wait till the AI generate the content!"}
             </AlertDialogTitle>
-            <div className="w-full h-[2px] bg-black/60 rounded-full my-2" />
+            <span className="text-sm text-muted-foreground leading-tight">
+              If the output is in Markdown Code, then you can{" "}
+              <a
+                href="https://mdxjs.com/playground/"
+                className="underline"
+                target="_blank"
+              >
+                visit this link
+              </a>{" "}
+              to decode it!
+            </span>
+            <div className="w-full h-0" />
+            <div className="w-full h-[2px] bg-black/60 rounded-full" />
+            <div className="w-full h-3" />
             <AlertDialogDescription>
               {isLoading ? (
                 <Loader className="flex mx-auto justify-center animate-spin" />
@@ -88,14 +99,12 @@ const DrawerAi = ({
                 <span>
                   {/* {wizardSuggestion.length > 0 && <p>{wizardSuggestion}</p>} */}
                   {wizardSuggestion.length > 0 && (
-                    // <div
-                    //   dangerouslySetInnerHTML={{
-                    //     __html: convertNewlinesToBreaks(wizardSuggestion),
-                    //   }}
-                    //   style={{ whiteSpace: "pre-line" }} // Preserve whitespace and line breaks
-                    // />
-                    // <Markdown>{wizardSuggestion}</Markdown>
-                    <span>{wizardSuggestion}</span>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: convertNewlinesToBreaks(wizardSuggestion),
+                      }}
+                      style={{ whiteSpace: "pre-line" }} // Preserve whitespace and line breaks
+                    />
                   )}
                 </span>
               )}
