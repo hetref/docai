@@ -1,4 +1,3 @@
-import ai from "@/app/utils/ai";
 import { db } from "@/app/utils/db";
 import EditorBlock from "@/components/EditorBlock";
 import { auth } from "@clerk/nextjs/server";

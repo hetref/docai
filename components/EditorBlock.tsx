@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { redirect, useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -46,6 +46,11 @@ const EditorBlock: React.FC<EditorBlockProps> = ({ document }) => {
   const router = useRouter();
   const { toast } = useToast();
 
+  const [documentValues, setDocumentValues] = useState({
+    title: document?.title,
+    description: document?.description,
+  });
+
   const EditorForm = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -58,6 +63,11 @@ const EditorBlock: React.FC<EditorBlockProps> = ({ document }) => {
     try {
       await axios.put(`/api/document/${document?.id}`, values);
       toast({ title: "Document Successfully Updated" });
+
+      setDocumentValues({
+        title: values.title,
+        description: values.description,
+      });
       //   revalidatePath("/");
       //   revalidatePath(`/document/${document.id}`);
     } catch (error) {
@@ -92,7 +102,10 @@ const EditorBlock: React.FC<EditorBlockProps> = ({ document }) => {
 
   return (
     <div>
-      <DrawerAi title={document.title} description={document.description} />
+      <DrawerAi
+        title={documentValues.title}
+        description={documentValues.description}
+      />
       <Form {...EditorForm}>
         <form
           onSubmit={EditorForm.handleSubmit(onUpdateChange)}

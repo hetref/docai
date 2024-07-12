@@ -29,7 +29,9 @@ const ai = async (title: string, description: string) => {
 
     console.log("DATA", data, description);
 
-    return data?.candidates[0].content.parts[0];
+    return data?.candidates[0].finishReason === "STOP"
+      ? data?.candidates[0].content.parts[0]
+      : false;
   } catch (error) {
     console.log("ERROR FETCHING FROM AI", error);
   }

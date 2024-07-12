@@ -49,6 +49,16 @@ const DrawerAi = ({
     if (wizardSuggestion === "") {
       try {
         const response = await ai(title!, description!);
+        if (!response) {
+          setIsLoading(false);
+          setWizardSuggestion(
+            "Failed to generate the content! Please regenerate it."
+          );
+          toast({
+            title: "Failed to generate!",
+          });
+          return;
+        }
         setWizardSuggestion(response.text);
         console.log("RESPOSE", response);
         console.log("RESPOSE", response.text);
